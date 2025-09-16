@@ -31,7 +31,7 @@ public class ItemPedido {
 
 	@Override
 	public String toString() {
-		return "ItemPedido [producto=" + this.producto.toString() + ", cantidad=" + cantidad + "]\n";
+		return "\n\nProducto: " + this.producto.toString() + "Cantidad: " + this.cantidad + "\n";
 	}
 	
 }

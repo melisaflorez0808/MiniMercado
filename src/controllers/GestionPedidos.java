@@ -16,19 +16,21 @@ public class GestionPedidos {
 		this.pedidos= new ArrayList<>();
 	}
 	
-	public boolean crearPedido(String idPedido, LocalDate fecha, Cliente cliente) {
-		PedidoBuilder pedidoBuilder = new PedidoBuilder(idPedido,fecha,cliente);
-		pedidos.add(pedidoBuilder.build());
-		return true;
+	public Pedido crearPedido(LocalDate fecha, Cliente cliente) {
+		PedidoBuilder pedidoBuilder = new PedidoBuilder(fecha,cliente);
+		Pedido pedidoNuevo = pedidoBuilder.build();
+		this.pedidos.add(pedidoNuevo);
+		return pedidoNuevo;
 	}
 	
-	public boolean crearPedidoCompleto(String idPedido, LocalDate fecha, Cliente cliente,String direccion,String notasEntrega,String codDescuento) {
-		PedidoBuilder pedidoBuilder = new PedidoBuilder(idPedido,fecha,cliente)
+	public Pedido crearPedidoCompleto(LocalDate fecha, Cliente cliente,String direccion,String notasEntrega,String codDescuento) {
+		PedidoBuilder pedidoBuilder = new PedidoBuilder(fecha,cliente)
 				.withDireccion(direccion)
 				.withNotasEntrega(notasEntrega)
 				.withDireccion(direccion);
-		pedidos.add(pedidoBuilder.build());
-		return true;
+		Pedido pedidoNuevo = pedidoBuilder.build();
+		this.pedidos.add(pedidoNuevo);
+		return pedidoNuevo;
 	}
 	
 	public Pedido buscarPedido(String idPedido) {

@@ -8,7 +8,7 @@ public class CatalogoProductos {
 	public static CatalogoProductos instance;
 	public ArrayList<Producto> productos;
 	
-	public CatalogoProductos(){
+	private CatalogoProductos(){
 		this.productos=new ArrayList<>();
 	}
 	

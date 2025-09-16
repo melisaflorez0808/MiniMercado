@@ -10,7 +10,7 @@ public class GestionClientes {
 	
 	public GestionClientes(GestionMiniMercado miniMercado) {
 		this.clientes= new ArrayList<>();
-		this.setGestionPedidos(new GestionPedidos(this));
+		this.gestionPedidos = new GestionPedidos(this);
 	}
 	
 	public boolean crearCliente(String nombre, String id, String email,String telefono) {

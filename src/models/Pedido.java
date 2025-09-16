@@ -4,7 +4,8 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 
 public class Pedido {
-	private String idPedido;
+	private static int contadorPedidos = 1;
+	private String id;
 	private LocalDate fecha;
 	private Cliente cliente;
 	private ArrayList<ItemPedido> itemsPedido;
@@ -13,21 +14,22 @@ public class Pedido {
 	private String codDescuento;
 	
 	public Pedido(PedidoBuilder builder) {
-		this.idPedido=builder.idPedido;
+		this.id = "Pedido # " + contadorPedidos;
+		contadorPedidos += 1;
 		this.fecha=builder.fecha;
 		this.cliente=builder.cliente;
 		this.direccion=builder.direccion;
 		this.notasEntrega=builder.notasEntrega;
 		this.codDescuento=builder.codDescuento;
-		this.itemsPedido=new ArrayList<>();
+		this.itemsPedido = new ArrayList<>();
 	}
 
 	public String getIdPedido() {
-		return this.idPedido;
+		return this.id;
 	}
 
 	public void setIdPedido(String idPedido) {
-		this.idPedido = idPedido;
+		this.id = idPedido;
 	}
 
 	public LocalDate getFecha() {
@@ -89,8 +91,8 @@ public class Pedido {
 
 	@Override
 	public String toString() {
-		return "Pedido [idPedido=" + idPedido + ", fecha=" + fecha + ", cliente=" + getCliente().toString() + ", direccion=" + direccion + ", notasEntrega=" 
-	+ notasEntrega + ", codDescuento="+ codDescuento + "]\n";
+		return "\nId Pedido: " + this.id + "\nFecha: " + this.fecha + "\nCliente: " + getCliente().toString() + "\nDirección: " + this.direccion + "\nNotas: " 
+	+ this.notasEntrega + "\nCod Descuento: "+ this.codDescuento + "\n";
 	}
 	
 	

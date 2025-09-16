@@ -4,15 +4,13 @@ package models;
 import java.time.LocalDate;
 
 public class PedidoBuilder {
-	public String idPedido;
 	public LocalDate fecha;
 	public Cliente cliente;
 	public String direccion;
 	public String notasEntrega;
 	public String codDescuento;
 	
-	public PedidoBuilder(String idPedido, LocalDate fecha, Cliente cliente) {
-		this.idPedido=idPedido;
+	public PedidoBuilder(LocalDate fecha, Cliente cliente) {
 		this.fecha=fecha;
 		this.cliente=cliente;
 	}

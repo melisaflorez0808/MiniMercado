@@ -37,10 +37,6 @@ public class Producto {
 
 	@Override
 	public String toString() {
-		return "[Codigo sku=" + sku + ", nombre=" + nombre + ", precio=" + precio + "]";
+		return "Código sku: " + this.sku + "\nNombre: " + this.nombre + "\nPrecio: " + this.precio + "\n";
 	}
-	
-	
-	
-
 }

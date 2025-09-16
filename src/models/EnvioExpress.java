@@ -11,6 +11,6 @@ public class EnvioExpress implements TipoEnvio {
 
 	@Override
 	public void definirEnvio() {
-		JOptionPane.showMessageDialog(null,"Se ha elegido el envio Express por valor de $" +valor);
+		JOptionPane.showMessageDialog(null,"Se ha elegido el envio Express por valor de $" + this.valor);
 	}
 }

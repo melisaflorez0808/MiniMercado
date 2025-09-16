@@ -11,6 +11,6 @@ public class EnvioEstandar implements TipoEnvio {
 	}
 	@Override
 	public void definirEnvio() {
-		JOptionPane.showMessageDialog(null,"Se ha elegido el envio Estandar por valor de $" +valor);
+		JOptionPane.showMessageDialog(null,"Se ha elegido el envio Estandar por valor de $" + this.valor);
 	}
 }

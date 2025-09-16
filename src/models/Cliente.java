@@ -60,7 +60,7 @@ public class Cliente {
 
 	@Override
 	public String toString() {
-		return "Cliente [nombre=" + nombre + ", id=" + id + ", email=" + email + ", telefono=" + telefono + "]\n";
+		return "Nombre: " + this.nombre + "\nId: " + this.id + "\nEmail: " + this.email + "\nTelefono: " + this.telefono;
 	}
 	
 	
