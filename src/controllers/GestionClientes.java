@@ -6,9 +6,11 @@ import models.Cliente;
 
 public class GestionClientes {
 	private ArrayList<Cliente> clientes;
+	private GestionPedidos gestionPedidos;
 	
 	public GestionClientes(GestionMiniMercado miniMercado) {
 		this.clientes= new ArrayList<>();
+		this.setGestionPedidos(new GestionPedidos(this));
 	}
 	
 	public boolean crearCliente(String nombre, String id, String email,String telefono) {
@@ -48,5 +50,13 @@ public class GestionClientes {
 			}
 		}
 		return null;
+	}
+
+	public GestionPedidos getGestionPedidos() {
+		return gestionPedidos;
+	}
+
+	public void setGestionPedidos(GestionPedidos gestionPedidos) {
+		this.gestionPedidos = gestionPedidos;
 	}
 }

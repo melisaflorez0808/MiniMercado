@@ -12,7 +12,7 @@ public class GestionPedidos {
 	private ArrayList<Pedido> pedidos;
 
 	
-	public GestionPedidos(GestionMiniMercado miniMercado) {
+	public GestionPedidos(GestionClientes gestionClientes) {
 		this.pedidos= new ArrayList<>();
 	}
 	

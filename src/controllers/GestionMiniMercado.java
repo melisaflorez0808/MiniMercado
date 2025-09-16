@@ -9,21 +9,15 @@ import interfaces.TipoEnvio;
 
 public class GestionMiniMercado {
 	private GestionClientes gestionClientes;
-	private GestionPedidos gestionPedidos;
 	private CatalogoProductos catalogo;
 	
 	public GestionMiniMercado() {
 		this.gestionClientes=new GestionClientes(this);
-		this.gestionPedidos=new GestionPedidos(this);
 		this.catalogo= CatalogoProductos.getInstance();
 	}
 
 	public GestionClientes getGestionClientes() {
 		return this.gestionClientes;
-	}
-
-	public GestionPedidos getGestionPedidos() {
-		return this.gestionPedidos;
 	}
 	
 	public CatalogoProductos getCatalogo() {

@@ -145,16 +145,16 @@ public class Main {
 			String datosAdicionales=capturarDato("Desea ingresar información adicional (S/N): ");
 			
 			if(datosAdicionales.equalsIgnoreCase("N")) {
-				boolean pedidoNuevo=miniMercado.getGestionPedidos().crearPedido(idPedido,LocalDate.now(),cliente);
+				boolean pedidoNuevo=miniMercado.getGestionClientes().getGestionPedidos().crearPedido(idPedido,LocalDate.now(),cliente);
 				mostrarMensaje(pedidoNuevo?"Se creó el pedido":"No se pudo crear el pedido");
 			}else {
-				boolean pedidoNuevo=miniMercado.getGestionPedidos().crearPedidoCompleto(idPedido, LocalDate.now(),cliente,
+				boolean pedidoNuevo=miniMercado.getGestionClientes().getGestionPedidos().crearPedidoCompleto(idPedido, LocalDate.now(),cliente,
 						capturarDato("Ingrese la direccion: "),
 						capturarDato("Ingrese notas adicionales: "),
 						capturarDato("Ingrese el código de descuento (Si Aplica): "));
 				mostrarMensaje(pedidoNuevo?"Se creó el pedido":"No se pudo crear el pedido");
 			}
-			Pedido pedido=miniMercado.getGestionPedidos().buscarPedido(idPedido);
+			Pedido pedido=miniMercado.getGestionClientes().getGestionPedidos().buscarPedido(idPedido);
 			cliente.addPedido(pedido);
 				
 			boolean seguirAgregando=true;
@@ -173,7 +173,7 @@ public class Main {
 			}
 				
 			if(pedido.getItemsPedido().size()==0) {
-				miniMercado.getGestionPedidos().eliminarPedido(idPedido);
+				miniMercado.getGestionClientes().getGestionPedidos().eliminarPedido(idPedido);
 				mostrarMensaje("El pedido no tiene productos y se elimino");
 			}else {
 				mostrarMensaje("El valor total del pedido es:" + pedido.calcularPedido());
@@ -183,10 +183,10 @@ public class Main {
 			}
 			break;
 		case 2:
-			mostrarMensaje(miniMercado.getGestionPedidos().mostrarPedidos());
+			mostrarMensaje(miniMercado.getGestionClientes().getGestionPedidos().mostrarPedidos());
 			break;
 		case 3:
-			mostrarMensaje(miniMercado.getGestionPedidos().mostrarItemPedido(capturarDato("Ingresar ID Pedido: ")));
+			mostrarMensaje(miniMercado.getGestionClientes().getGestionPedidos().mostrarItemPedido(capturarDato("Ingresar ID Pedido: ")));
 		case 4:
 			break;
 		default:
