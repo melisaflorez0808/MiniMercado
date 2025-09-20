@@ -6,11 +6,15 @@ import models.Cliente;
 import models.ItemPedido;
 import models.Pedido;
 import models.PedidoBuilder;
+import models.Producto;
 
 
 public class GestionPedidos {
 	private ArrayList<Pedido> pedidos;
 
+	public void addPedido(Pedido pedido) {
+		this.pedidos.add(pedido);
+	}
 	
 	public GestionPedidos(GestionClientes gestionClientes) {
 		this.pedidos= new ArrayList<>();
@@ -20,6 +24,7 @@ public class GestionPedidos {
 		PedidoBuilder pedidoBuilder = new PedidoBuilder(fecha,cliente);
 		Pedido pedidoNuevo = pedidoBuilder.build();
 		this.pedidos.add(pedidoNuevo);
+		cliente.addPedido(pedidoNuevo);
 		return pedidoNuevo;
 	}
 	
@@ -30,6 +35,7 @@ public class GestionPedidos {
 				.withDireccion(direccion);
 		Pedido pedidoNuevo = pedidoBuilder.build();
 		this.pedidos.add(pedidoNuevo);
+		cliente.addPedido(pedidoNuevo);
 		return pedidoNuevo;
 	}
 	
@@ -73,5 +79,16 @@ public class GestionPedidos {
 			}
 		}
 		return mensaje;
-	}	
+	}
+	
+	public boolean agregarProducto(String idPedido, String sku,int cantidad) {
+		Producto producto =CatalogoProductos.getInstance().buscarProducto(sku);
+		if (producto==null) {
+			return false;
+		}else {
+			Pedido pedidoHallado=buscarPedido(idPedido);
+			pedidoHallado.addItemsPedido(producto, cantidad);
+			return true;
+		}
+	}
 }

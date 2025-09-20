@@ -14,7 +14,7 @@ public class Pedido {
 	private String codDescuento;
 	
 	public Pedido(PedidoBuilder builder) {
-		this.id = "Pedido # " + contadorPedidos;
+		this.id = "0"+contadorPedidos;
 		contadorPedidos += 1;
 		this.fecha=builder.fecha;
 		this.cliente=builder.cliente;
@@ -91,8 +91,9 @@ public class Pedido {
 
 	@Override
 	public String toString() {
-		return "\nId Pedido: " + this.id + "\nFecha: " + this.fecha + "\nCliente: " + getCliente().toString() + "\nDirección: " + this.direccion + "\nNotas: " 
-	+ this.notasEntrega + "\nCod Descuento: "+ this.codDescuento + "\n";
+		return "\nId Pedido: " + this.id + "\nFecha: " + this.fecha + "\nCliente: " + getCliente().getNombre() 
+				+ " id: "+getCliente().getId()+"\nDirección: " + this.direccion + "\nNotas: " + this.notasEntrega 
+				+ "\nCod Descuento: "+ this.codDescuento + "\n";
 	}
 	
 	

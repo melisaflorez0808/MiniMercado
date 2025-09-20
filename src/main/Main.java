@@ -1,13 +1,8 @@
 package main;
 
 import java.time.LocalDate;
-
 import javax.swing.JOptionPane;
-
 import controllers.GestionMiniMercado;
-import models.Cliente;
-import models.Pedido;
-import models.Producto;
 
 public class Main {
 	
@@ -135,54 +130,51 @@ public class Main {
 	public static void validarMenuPedidos(int opcion) {
 		switch (opcion) {
 		case 1:
-			Cliente cliente=miniMercado.getGestionClientes().buscarCliente(capturarDato("Ingrese el id del cliente que va a realizar el pedido: "));
-			if(cliente==null) {
+			String idCliente=capturarDato("Ingrese el id del cliente que va a realizar el pedido: ");
+			if(miniMercado.getGestionClientes().buscarCliente(idCliente)==null){
 				mostrarMensaje("No existe el cliente, debe crearlo en el menú de Gestion de Clientes");
 				break;
 			}
 
-			Pedido pedidoNuevo = null;
 			String datosAdicionales=capturarDato("Desea ingresar información adicional (S/N): ");
+			String idPedido;
 			
-			if(datosAdicionales.equalsIgnoreCase("n")) {
-				pedidoNuevo = miniMercado.getGestionClientes().getGestionPedidos().crearPedido(LocalDate.now(),cliente);
-
-			}else {
-				pedidoNuevo=miniMercado.getGestionClientes().getGestionPedidos().crearPedidoCompleto(LocalDate.now(),cliente,
+			if (datosAdicionales.equalsIgnoreCase("n")) {
+				idPedido=miniMercado.getGestionClientes().getGestionPedidos().crearPedido(LocalDate.now(),
+						miniMercado.getGestionClientes().buscarCliente(idCliente)).getIdPedido();
+				mostrarMensaje((idPedido!=null)?"Se creó el pedido":"No se pudo crear el pedido");
+			}else{
+				idPedido=miniMercado.getGestionClientes().getGestionPedidos().crearPedidoCompleto(LocalDate.now(),
+						miniMercado.getGestionClientes().buscarCliente(idCliente),
 						capturarDato("Ingrese la direccion: "),
 						capturarDato("Ingrese notas adicionales: "),
-						capturarDato("Ingrese el código de descuento (Si Aplica): "));
-			}
-			if (pedidoNuevo!= null) {
-				mostrarMensaje("Se creó el pedido. Ingrese los productos que desea agregar al carrito");
-			}else {
-				mostrarMensaje("No se pudo crear el pedido");
+						capturarDato("Ingrese el código de descuento (Si Aplica): ")).getIdPedido();
+				mostrarMensaje((idPedido!=null)?"Se creó el pedido":"No se pudo crear el pedido");
 			}
 			
-			boolean seguirAgregando=true;
-			while (seguirAgregando) {
-				mostrarMensaje(miniMercado.getCatalogo().mostrarProducto());
-				Producto producto= miniMercado.getCatalogo().buscarProducto(capturarDato("Ingrese el codigo sku del producto que desea agregar: "));
-				if (producto!=null) {
-					boolean agregarItem=pedidoNuevo.addItemsPedido(producto,Integer.parseInt(capturarDato("Ingrese la cantidad: ")));
-					mostrarMensaje(agregarItem?"Producto Agregado":"No se Agrego el Producto");
-				}else{
-					mostrarMensaje("El producto no existe");
-				}
-				String mensaje=capturarDato("Desea ingresar mas productos (S/N)");
-				if(mensaje.equalsIgnoreCase("N")) {
-					seguirAgregando=false;
+			if((idPedido)!=null) {
+				boolean seguirAgregando=true;
+				while (seguirAgregando) {
+					mostrarMensaje(miniMercado.getCatalogo().mostrarProducto());
+					boolean canAgregar=miniMercado.getGestionClientes().getGestionPedidos().agregarProducto(idPedido,
+							capturarDato("Ingrese el codigo sku del producto que desea agregar: "),
+							Integer.parseInt(capturarDato("Ingrese la cantidad: ")));
+					mostrarMensaje(canAgregar?"Producto agregado con exito":"No se pudo agregar el producto, verifique el codigo");
+					String mensaje=capturarDato("Desea ingresar mas productos (S/N)");
+					if(mensaje.equalsIgnoreCase("n")) {
+						seguirAgregando=false;
+					}
 				}
 			}
 			
-			cliente.addPedido(pedidoNuevo);
-			
-			if(pedidoNuevo.getItemsPedido().size()==0) {
-				miniMercado.getGestionClientes().getGestionPedidos().eliminarPedido(pedidoNuevo.getIdPedido());
+			if(miniMercado.getGestionClientes().getGestionPedidos().buscarPedido(idPedido).getItemsPedido().size()==0) {
+				miniMercado.getGestionClientes().getGestionPedidos().eliminarPedido(idPedido);
 				mostrarMensaje("El pedido no tiene productos y se elimino");
 			}else {
-				mostrarMensaje("El valor total del pedido es:" + pedidoNuevo.calcularPedido());
-				miniMercado.crearPago(capturarDato("Ingrese el método de pago\n (1)TARJETA DE CREDITO\n (2)PSE"),pedidoNuevo.calcularPedido());
+				mostrarMensaje("El valor total del pedido es:" + miniMercado.getGestionClientes().getGestionPedidos()
+						.buscarPedido(idPedido).calcularPedido());
+				miniMercado.crearPago(capturarDato("Ingrese el método de pago\n (1)TARJETA DE CREDITO\n (2)PSE"),
+						miniMercado.getGestionClientes().getGestionPedidos().buscarPedido(idPedido).calcularPedido());
 				miniMercado.seleccionarEnvio(capturarDato("Seleccione el tipo de envío\n (1)ESTANDAR\n (2)EXPRESS"));
 				miniMercado.enviarNotificacion(capturarDato("Seleccione el tipo de notificación\n (1)EMAIL\n (2)SMS"));
 			}
