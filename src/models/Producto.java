@@ -3,7 +3,7 @@ package models;
 public class Producto {
 	private String sku;
 	private String nombre;
-	private double precio;
+	private float precio;
 	
 	public Producto(String sku, String nombre, float precio) {
 		this.sku=sku;
